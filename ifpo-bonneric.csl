@@ -66,15 +66,6 @@
       </name>
     </names>
   </macro>
-  <macro name="pygyear">
-    <choose> 
-      <if type="bill book graphic legal_case motion_picture paper-conference manuscript report song thesis" match="any">
-          <date variable="issued">
-            <date-part name="year"/>
-          </date>
-	    </if>
-	  </choose>
-  </macro>
   <macro name="title">
     <choose>
       <if type="bill book graphic legal_case motion_picture report song" match="any">
@@ -363,6 +354,20 @@
       </else>
     </choose>
   </macro>
+
+  <macro name="pygauthor">
+     <group>
+	<names variable="author">
+	  <name form="short" and="text" name-as-sort-order="first" sort-separator=" " initialize-with="." font-style="normal">
+              <name-part name="family" font-variant="small-caps"/>
+            </name>
+          </names>
+          <date variable="issued"  prefix=",&#160;" suffix="&#160;:&#160;">
+	    <date-part name="year"/>
+          </date>
+      </group>
+   </macro>
+
   <citation>
     <layout suffix="." delimiter="&#160;; ">
       <choose>
@@ -411,9 +416,9 @@
       <key variable="issued" sort="descending"/>
     </sort>
     <layout suffix=".">
+      <text macro="pygauthor"/>
       <group delimiter=", ">
         <text macro="author"/>
-        <text macro="pygyear"/>
         <text macro="title"/>
         <text macro="translator"/>
         <text macro="edition"/>
