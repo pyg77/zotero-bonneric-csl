@@ -66,6 +66,15 @@
       </name>
     </names>
   </macro>
+  <macro name="pygyear">
+    <choose> 
+      <if type="bill book graphic legal_case motion_picture paper-conference manuscript report song thesis" match="any">
+          <date variable="issued">
+            <date-part name="year"/>
+          </date>
+	    </if>
+	  </choose>
+  </macro>
   <macro name="title">
     <choose>
       <if type="bill book graphic legal_case motion_picture report song" match="any">
@@ -404,6 +413,7 @@
     <layout suffix=".">
       <group delimiter=", ">
         <text macro="author"/>
+        <text macro="pygyear"/>
         <text macro="title"/>
         <text macro="translator"/>
         <text macro="edition"/>
