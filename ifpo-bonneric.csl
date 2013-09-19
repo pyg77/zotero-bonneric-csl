@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="note" default-locale="fr-FR" version="1.0" page-range-format="expanded" demote-non-dropping-particle="sort-only">
   <info>
-    <title>Presses Universitaires de Rennes (French)</title>
-    <id>http://www.zotero.org/styles/presses-universitaires-de-rennes</id>
-    <link href="http://www.zotero.org/styles/presses-universitaires-de-rennes" rel="self"/>
-    <link href="http://www.pur-editions.fr/" rel="documentation"/>
+    <title>IFPO BONNERIC</title>
+    <id>https://github.com/pyg77/zotero-bonneric-csl</id>
+    <link href="https://github.com/pyg77/zotero-bonneric-csl" rel="self"/>
+    <link href="https://github.com/pyg77/zotero-bonneric-csl" rel="documentation"/>
     <author>
-      <name>Franziska Heimburger</name>
-      <email>zotero@franziska.fr</email>
+      <name>Pierre-Yves Gosset</name>
+      <email>pyg@framasoft.org</email>
     </author>
     <category citation-format="note"/>
     <category field="social_science"/>
     <category field="generic-base"/>
     <updated>2013-08-29T04:18:55+00:00</updated>
-    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License and is based on Franziska Heimburger (zotero@franziska.fr) work for Presses Universitaires de Rennes</rights>
   </info>
   <locale xml:lang="fr">
     <terms>
