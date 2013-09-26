@@ -32,6 +32,96 @@
       </term>
     </terms>
   </locale>
+  
+  
+  <macro name="author-sort">
+    <names variable="author">
+      <name and="text" name-as-sort-order="all" sort-separator=" " delimiter=", " delimiter-precedes-last="never"/>
+      <label form="short" prefix=" " text-case="lowercase"/>
+	  <name-part name="family" font-variant="small-caps"/>
+      <substitute>
+        <names variable="editor">
+          <name and="text" name-as-sort-order="all" sort-separator=", " delimiter=", " delimiter-precedes-last="never"/>
+          <label form="short" prefix=" (" suffix=")" text-case="lowercase"/>
+          <substitute>
+            <names variable="editorial-director"/>
+          </substitute>
+        </names>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="author-short">
+    <names variable="author">
+      <name form="short" and="text" delimiter=", " delimiter-precedes-last="never"  et-al-min="3" et-al-use-first="1"/>
+	  <name-part name="family" font-variant="small-caps"/>
+      <substitute>
+        <names variable="editor"/>
+        <names variable="translator"/>
+        <choose>
+          <if type="book">
+            <text variable="title" form="short" font-style="italic"/>
+          </if>
+          <else>
+            <text variable="title" form="short" quotes="true"/>
+          </else>
+        </choose>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="author-last">
+    <names variable="author">
+      <name and="text" name-as-sort-order="all" sort-separator=" " delimiter=", " delimiter-precedes-last="never" initialize-with="."/>
+      <label form="short" prefix=" "  text-case="lowercase"/>
+	  <name-part name="family" font-variant="small-caps"/>
+      <substitute>
+        <names variable="editor">
+          <name and="text" name-as-sort-order="all" sort-separator=", " delimiter=", " delimiter-precedes-last="never" initialize-with="."/>
+          <label form="short" prefix=" (" suffix=")" text-case="lowercase"/>
+          <substitute>
+            <names variable="editorial-director"/>
+          </substitute>
+        </names>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="year-date">
+    <group prefix=" ">
+      <choose>
+        <if variable="issued">
+          <date variable="issued">
+            <date-part name="year"/>
+          </date>
+        </if>
+        <else>
+          <text term="no date"/>
+        </else>
+      </choose>
+    </group>
+  </macro>
+  <macro name="year-date-short">
+    <choose>
+      <if variable="issued">
+        <date variable="issued">
+          <date-part name="year"/>
+        </date>
+      </if>
+      <else>
+        <text term="no date" form="short"/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="full-date">
+    <date variable="issued" delimiter=" ">
+      <date-part name="day"/>
+      <date-part name="month"/>
+      <date-part name="year"/>
+    </date>
+  </macro>
+  
+  
+  
+  
+  
   <macro name="author">
     <choose>
       <if variable="author">
@@ -41,6 +131,11 @@
           </name>
         </names>
       </if>
+	  
+	  <else-if variable="container-title-short">
+	    <text variable="title" text-case="capitalize-first" font-style="italic" suffix=","/>
+	  </else-if>
+	  
       <else-if variable="editor">
         <names variable="editor">
           <name form="long" and="text" name-as-sort-order="first" sort-separator=" " initialize-with="." font-style="normal">
@@ -320,7 +415,7 @@
   <macro name="volume">
     <choose>
       <if is-numeric="volume">
-        <text term="volume" form="short" suffix=".&#160;"/>
+        <!-- <text term="volume" form="long" suffix=".&#160;"/> --> 
         <text variable="volume"/>
       </if>
       <else>
@@ -354,20 +449,9 @@
       </else>
     </choose>
   </macro>
-
-  <macro name="pygauthor">
-     <group>
-	<names variable="author">
-	  <name form="short" and="text" name-as-sort-order="first" sort-separator=" " initialize-with="." font-style="normal">
-              <name-part name="family" font-variant="small-caps"/>
-            </name>
-          </names>
-          <date variable="issued"  prefix=",&#160;" suffix="&#160;:&#160;">
-	    <date-part name="year"/>
-          </date>
-      </group>
-   </macro>
-
+  
+  
+  <!--
   <citation>
     <layout suffix="." delimiter="&#160;; ">
       <choose>
@@ -410,21 +494,67 @@
       </choose>
     </layout>
   </citation>
+  
+  -->
+    <citation et-al-min="4" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" collapse="year" cite-group-delimiter=", ">
+    <sort>
+      <key macro="author-last"/>
+      <key macro="year-date"/>
+    </sort>
+    <layout prefix="" suffix="." delimiter="&#160;; ">
+      <group delimiter=" ">
+        <text macro="author-short"/>
+        <text macro="year-date-short"/>
+      </group>
+    </layout>
+  </citation>
+
+  
+  
+
+
+  <bibliography>
+    <sort>
+      <key macro="author" names-min="3" names-use-first="3" />
+      <key variable="issued" sort="descending"/>
+    </sort>
+    <layout suffix=".">
+	  <text macro="author-short" font-weight="bold"/>
+      <date variable="issued" prefix=" " suffix="&#160;: " font-weight="bold">
+        <date-part name="year"/>
+      </date>
+	
+      <group delimiter=", ">
+        <text macro="author-last"/>
+        <text macro="title"/>
+        <text macro="translator"/>
+
+        <text macro="pub-place"/>
+
+        <text macro="collection"/>
+        <text macro="yearpage"/>
+      </group>
+    </layout>
+  </bibliography>  
+  
+<!--  
   <bibliography>
     <sort>
       <key macro="author" names-min="3" names-use-first="3"/>
       <key variable="issued" sort="descending"/>
     </sort>
     <layout suffix=".">
-      <text macro="pygauthor"/>
       <group delimiter=", ">
         <text macro="author"/>
         <text macro="title"/>
         <text macro="translator"/>
         <text macro="edition"/>
+        <text macro="pub-place"/>
+        <text macro="publisher"/>
         <text macro="collection"/>
         <text macro="yearpage"/>
       </group>
     </layout>
   </bibliography>
+  -->
 </style>
