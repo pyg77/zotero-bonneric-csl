@@ -271,12 +271,13 @@
    </macro>
    <macro name="title">
       <choose>
-         <if type="bill book chapter" match="any">
+         <if type="bill book" match="any">
             <text variable="title" text-case="capitalize-first" font-style="italic" />
          </if>
-         <else-if type="article-journal article-newspaper article-magazine paper-conference thesis" match="any">
+         <else-if type="article-journal article-newspaper article-magazine chapter paper-conference thesis" match="any">
             <group delimiter=", ">
                <text variable="title" text-case="capitalize-first" quotes="true" font-style="normal" />
+			   <text macro="editor" suffix="" />
                <text variable="container-title" font-style="italic" />
             </group>
          </else-if>
