@@ -138,13 +138,23 @@
         </choose>
     </macro>
 
-	
+  <macro name="page">
+    <group>
+      <label variable="page" prefix=", " suffix=".&#160;" form="short"/>
+      <text variable="page"/>
+    </group>
+  </macro>	
 	
 	<macro name="volume-issue">
+	<choose>
+            <if type="book" match="none">
           <group prefix="" delimiter="/">
             <text variable="volume"/>
 			<text variable="issue" prefix="" suffix=""/>
-          </group>
+			</group>
+			</if>
+	</choose>
+          
   </macro>
 
   <macro name="page-bib">
@@ -160,7 +170,7 @@
             <text variable="volume" font-style="italic"/>
             <text variable="issue" prefix="" suffix=""/>
           </group>
-          <text variable="page" prefix=" p.&#160;" />
+          <text variable="page" prefix=" p. " />
         </group>
       </if>
       <!-- <else-if type="article-newspaper">
@@ -227,6 +237,14 @@
 	</else-if>
   </macro>
 
+    <macro name="container-title">
+    <choose>
+      <if type="chapter paper-conference" match="any">
+        <text macro="container-prefix" suffix=" "/>
+      </if>
+    </choose>
+    <text variable="container-title" text-case="title"/>
+  </macro>
 
 
 
@@ -277,29 +295,23 @@
   </macro>
   <macro name="title">
     <choose>
-      <if type="bill book graphic legal_case motion_picture report song" match="any">
+      <if type="bill book chapter" match="any">
         <text variable="title" text-case="capitalize-first" font-style="italic"/>
       </if>
-      <else-if type="article-journal article-newspaper article-magazine" match="any">
+      <else-if type="article-journal article-newspaper article-magazine paper-conference thesis" match="any">
         <group delimiter=", ">
           <text variable="title" text-case="capitalize-first" quotes="true" font-style="normal"/>
           <text variable="container-title" font-style="italic"/>
         </group>
       </else-if>
-      <else-if type="thesis" match="any">
-        <group>
-          <text variable="title" text-case="capitalize-first" font-style="italic" suffix=","/>
-          <text variable="genre" suffix=", " prefix=" "/>
-          <text variable="publisher"/>
-        </group>
-      </else-if>
+
       <else-if type="manuscript" match="any">
         <group delimiter=",">
           <text variable="title" text-case="capitalize-first" quotes="true" font-style="normal"/>
           <text variable="genre" prefix=" "/>
         </group>
       </else-if>
-      <else-if type="chapter entry-dictionary entry-encyclopedia" match="any">
+      <else-if type="entry-dictionary entry-encyclopedia" match="any">
         <group>
           <group suffix=", ">
             <text variable="title" text-case="capitalize-first" quotes="true"/>
@@ -347,7 +359,7 @@
           </group>
           <choose>
             <if variable="locator" match="any">
-              <text variable="locator" prefix="p.&#160;"/>
+              <text variable="locator" prefix="p. "/>
             </if>
           </choose>
         </group>
@@ -364,7 +376,7 @@
           </group>
           <choose>
             <if variable="locator" match="any">
-              <text variable="locator" prefix="p.&#160;"/>
+              <text variable="locator" prefix="p. "/>
             </if>
             <else-if variable="locator" match="none">
               <label variable="page" form="short"/>
@@ -377,7 +389,7 @@
         <group delimiter=" " font-style="normal">
           <choose>
             <if variable="locator" match="any">
-              <text variable="locator" prefix="p.&#160;"/>
+              <text variable="locator" prefix="p. "/>
             </if>
             <else-if variable="locator" match="none">
               <label variable="page" form="short"/>
@@ -396,7 +408,7 @@
           <group delimiter=" " font-style="normal">
             <choose>
               <if variable="locator" match="any">
-                <text variable="locator" prefix="p.&#160;"/>
+                <text variable="locator" prefix="p. "/>
               </if>
               <else-if variable="locator" match="none">
                 <label variable="page" form="short"/>
@@ -470,7 +482,7 @@
           <group delimiter=" " font-style="normal">
             <choose>
               <if variable="locator" match="any">
-                <text variable="locator" prefix="p.&#160;"/>
+                <text variable="locator" prefix="p. "/>
               </if>
               <else-if variable="locator" match="none">
                 <label variable="page" form="short"/>
