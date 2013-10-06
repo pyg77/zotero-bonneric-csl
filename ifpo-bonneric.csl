@@ -59,7 +59,7 @@
         <names variable="translator"/>
         <choose>
           <if type="book">
-            <text variable="title" form="short" font-style="italic"/>
+            <text variable="title-short" font-style="italic"/>
           </if>
           <else>
             <text variable="title" form="short" quotes="true"/>
